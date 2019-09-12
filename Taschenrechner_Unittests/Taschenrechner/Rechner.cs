@@ -10,7 +10,10 @@ namespace Taschenrechner
     {
         public int Add(int z1, int z2)
         {
-            return z1 + z2;
+            checked
+            {
+                return z1 + z2;
+            }
         }
     }
 }
