@@ -7,6 +7,7 @@ namespace Taschenrechner.Tests
     public class RechnerTests
     {
         [TestMethod]
+        [TestCategory("MSTest")]
         public void Add_2_and_3_results_5()
         {
             // Arrange
@@ -24,6 +25,7 @@ namespace Taschenrechner.Tests
         // Grenz/Extremfälle
 
         [TestMethod]
+        [TestCategory("MSTest")]
         public void Add_0_and_0_results_0()
         {
             // Arrange
@@ -37,6 +39,7 @@ namespace Taschenrechner.Tests
         }
 
         [TestMethod]
+        [TestCategory("MSTest")]
         public void Add_MAXInt_and_1_throws_OverflowException()
         {
             Rechner rechner = new Rechner();
@@ -48,6 +51,7 @@ namespace Taschenrechner.Tests
         }
 
         [TestMethod]
+        [TestCategory("MSTest")]
         public void Add_MINInt_and_N1_throws_OverflowException()
         {
             Rechner rechner = new Rechner();
@@ -59,6 +63,7 @@ namespace Taschenrechner.Tests
         }
 
         [TestMethod]
+        [TestCategory("MSTest")]
         [DataRow(12,3,15)]
         [DataRow(0,0,0)]
         [DataRow(-12,-15,-27)]
