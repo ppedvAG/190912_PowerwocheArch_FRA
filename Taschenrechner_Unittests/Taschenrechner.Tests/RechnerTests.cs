@@ -58,5 +58,18 @@ namespace Taschenrechner.Tests
             });
         }
 
+        [TestMethod]
+        [DataRow(12,3,15)]
+        [DataRow(0,0,0)]
+        [DataRow(-12,-15,-27)]
+        public void Add_TestCasesValues(int z1, int z2, int expectedResult)
+        {
+            Rechner rechner = new Rechner();
+
+            var result = rechner.Add(z1, z2);
+
+            Assert.AreEqual(expectedResult, result);
+        }
+
     }
 }
