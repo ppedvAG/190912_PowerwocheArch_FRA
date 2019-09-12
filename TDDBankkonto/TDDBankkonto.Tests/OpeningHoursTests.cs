@@ -1,6 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.QualityTools.Testing.Fakes;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Pose;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,15 +45,46 @@ namespace TDDBankkonto.Tests
         public void IsOpen_returns_correct_value(int day, int month, int year, int hour, int minutes, bool expectedResult)
         {
             OpeningHours oh = new OpeningHours();
-            Assert.AreEqual(expectedResult, oh.IsOpen(new DateTime(year,month,day,hour,minutes,00)));
+            Assert.AreEqual(expectedResult, oh.IsOpen(new DateTime(year, month, day, hour, minutes, 00)));
         }
 
         [TestMethod]
-        public void IsNowOpen_returns_true()
+        public void IsNowOpen_returns_true_FakesFramework()
         {
             // Problemstellung: DateTime.Now liefert immer ein anderes Ergebnis
-            OpeningHours oh = new OpeningHours();
-            Assert.IsTrue(oh.IsNowOpen());
+
+            // Fakes-Framework
+            using (ShimsContext.Create()) // Hier drinnen gilt "mein" DateTime.Now
+            {
+                //Konfiguration: 
+                System.Fakes.ShimDateTime.NowGet = () => new DateTime(1848, 3, 13, 13, 44, 12); //Montag
+
+                OpeningHours oh = new OpeningHours();
+                var fakeDatum = DateTime.Now;
+
+                // Feste Abhängigkeiten testen
+                System.IO.Fakes.ShimFile.ExistsString = x => true;
+
+                Assert.IsTrue(File.Exists("7:\\/%//$SADASDß???.txt"));
+
+                Assert.IsTrue(oh.IsNowOpen());
+            }
+            var echteDatum = DateTime.Now;
+        }
+
+        [TestMethod]
+        public void IsNowOpen_returns_true_Pose()
+        {
+            // Konfig-Objekt
+            Shim dateShim = Shim.Replace(() => DateTime.Now).With(() => new DateTime(2020, 1, 1, 12, 12, 12));
+
+            // https://github.com/tonerdo/pose
+
+            DateTime datum;
+            PoseContext.Isolate(() =>
+            {
+                datum = DateTime.Now;
+            }, dateShim);
         }
     }
 }

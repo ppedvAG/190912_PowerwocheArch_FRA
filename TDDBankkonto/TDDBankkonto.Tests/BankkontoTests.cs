@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.QualityTools.Testing.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TDDBankkonto.Tests
@@ -120,6 +121,19 @@ namespace TDDBankkonto.Tests
 
             k.Abheben(value);
             Assert.AreEqual(oldValue, k.Kontostand);
+        }
+
+        [TestMethod]
+        public void Bankkonto_FakeTest_Kontostand_ist_50_000_000()
+        {
+            using(ShimsContext.Create())
+            {
+                TDDBankkonto.Fakes.ShimBankkonto.AllInstances.KontostandGet = x => 50_000_000;
+
+                var konto = new Bankkonto(); // 100m in Wirklichkeit
+
+                Assert.AreEqual(50_000_000, konto.Kontostand);
+            }
         }
     }
 }
