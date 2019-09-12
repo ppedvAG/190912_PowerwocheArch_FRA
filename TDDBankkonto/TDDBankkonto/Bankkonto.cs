@@ -8,27 +8,31 @@ namespace TDDBankkonto
 {
     public class Bankkonto
     {
-        private decimal value;
-
-        public Bankkonto()
-        {
-        }
-
+        public Bankkonto() :this(100m){}
         public Bankkonto(decimal value)
         {
-            this.value = value;
+            if (value < 0)
+                throw new ArgumentException("Sie dürfen kein neues Konto mit negativem Kontostand anlegen");
+            Kontostand = value;
         }
 
-        public decimal Kontostand { get; set; }
+        public decimal Kontostand { get; protected set; }
 
         public void Einzahlen(decimal value)
         {
-            throw new NotImplementedException();
+            if (value < 0)
+                throw new ArgumentException("Sie dürfen keinen negativen Betrag einzahlen !");
+            Kontostand += value;
         }
 
         public void Abheben(decimal value)
         {
-            throw new NotImplementedException();
+            if (value < 0)
+                throw new ArgumentException("Sie dürfen keinen negativen Betrag abheben !");
+            if (Kontostand - value < 0)
+                throw new InvalidOperationException("Sie dürfen nicht mehr Abheben als Sie besitzen!");
+
+            Kontostand -= value;
         }
     }
 }
