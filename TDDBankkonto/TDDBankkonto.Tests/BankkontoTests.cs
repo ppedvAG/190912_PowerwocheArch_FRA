@@ -135,5 +135,27 @@ namespace TDDBankkonto.Tests
                 Assert.AreEqual(50_000_000, konto.Kontostand);
             }
         }
+
+        [TestMethod]
+        public void Reichtum_Alle_Fälle_Testen()
+        {
+            using(ShimsContext.Create())
+            {
+                Bankkonto konto = new Bankkonto(0);
+
+                TDDBankkonto.Fakes.ShimBankkonto.AllInstances.KontostandGet = x => 0;
+                Assert.AreEqual(Reichtum.Nichts, konto.Reichtum);
+
+                TDDBankkonto.Fakes.ShimBankkonto.AllInstances.KontostandGet = x => 90;
+                Assert.AreEqual(Reichtum.Arm, konto.Reichtum);
+
+                TDDBankkonto.Fakes.ShimBankkonto.AllInstances.KontostandGet = x => 5900;
+                Assert.AreEqual(Reichtum.Mittelschicht, konto.Reichtum);
+
+                TDDBankkonto.Fakes.ShimBankkonto.AllInstances.KontostandGet = x => 50_000_000;
+                Assert.AreEqual(Reichtum.Obere1Prozent, konto.Reichtum);
+            }
+
+        }
     }
 }
