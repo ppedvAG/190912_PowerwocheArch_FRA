@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using AutoFixture;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ppedv.Personenverwaltung.Domain;
@@ -117,6 +119,62 @@ namespace ppedv.Personenverwaltung.Data.EF.Tests
                 //Assert.IsNull(loadedPerson);
                 loadedPerson.Should().BeNull();
             }
+        }
+
+        // https://github.com/AutoFixture/AutoFixture
+        // https://github.com/AutoFixture/AutoFixture/wiki/Cheat-Sheet
+        [TestMethod]
+        public void EFContext_Can_CRUD_Person_Fluent_Autofixture()
+        {
+            var fix = new Fixture();
+            // fix.Behaviors.Add(new OmitOnRecursionBehavior()); ; // z.B. N zu N
+
+            // var p = fix.CreateMany<Person>(1000).ToArray();
+
+            var company = fix.Create<Company>();
+
+            #region Fluent
+            //Person p = new Person { FirstName = "Tom", LastName = "Ate", Age = 10, Balance = 100 };
+            //string newLastName = "Atinger";
+            //// Test: Create
+            //using (var context = new EFContext(connectionString))
+            //{
+            //    context.Person.Add(p);
+            //    context.SaveChanges();
+            //}
+            //// Neuer Kontext: 
+            //using (var context = new EFContext(connectionString))
+            //{
+            //    // Check für Create
+            //    var loadedPerson = context.Person.Find(p.ID);
+            //    //Assert.AreEqual(p.FirstName, loadedPerson.FirstName); // Korrekt: ObjectGraph
+            //    loadedPerson.Should().NotBeNull();
+            //    loadedPerson.Should().BeEquivalentTo(p); // ObjectGraph - Vergleich
+
+            //    loadedPerson.LastName = newLastName;
+            //    context.SaveChanges();
+            //}
+            //// Neuer Kontext: 
+            //using (var context = new EFContext(connectionString))
+            //{
+            //    // Check für Update
+            //    var loadedPerson = context.Person.Find(p.ID);
+            //    //Assert.AreEqual(newLastName, loadedPerson.LastName);
+            //    loadedPerson.LastName.Should().Be(newLastName);
+
+            //    // Delete
+            //    context.Person.Remove(loadedPerson);
+            //    context.SaveChanges();
+            //}
+            //// Neuer Kontext: 
+            //using (var context = new EFContext(connectionString))
+            //{
+            //    // Check für Update
+            //    var loadedPerson = context.Person.Find(p.ID);
+            //    //Assert.IsNull(loadedPerson);
+            //    loadedPerson.Should().BeNull();
+            //} 
+            #endregion
         }
     }
 }
