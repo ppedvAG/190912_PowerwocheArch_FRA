@@ -8,11 +8,11 @@ namespace ppedv.Personenverwaltung.Domain.Interfaces
 {
     public interface IRepository
     {
-        void Add<T>(T item);
-        void Delete<T>(T item);
-        void Update<T>(T item);
-        T GetByID<T>(int ID);
-        IEnumerable<T> GetAll<T>();
+        void Add<T>(T item) where T : class;
+        void Delete<T>(T item) where T : class;
+        void Update<T>(T item) where T : class;
+        T GetByID<T>(int ID) where T : class;
+        IEnumerable<T> GetAll<T>() where T : class;
         void Save();
     }
 }
