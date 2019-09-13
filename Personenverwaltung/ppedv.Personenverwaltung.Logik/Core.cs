@@ -19,6 +19,8 @@ namespace ppedv.Personenverwaltung.Logik
         // In der Software wird die Hardware angesteuert
         public IEnumerable<Person> RecruitPersonForDepartment(int amount)
         {
+            if(amount < 0)
+                throw new ArgumentException();
             List<Person> newMembers = new List<Person>();
             for (int i = 0; i < amount; i++)
             {
