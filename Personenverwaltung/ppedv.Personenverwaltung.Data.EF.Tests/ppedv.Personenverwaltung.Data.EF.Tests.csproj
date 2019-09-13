@@ -63,6 +63,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ppedv.Personenverwaltung.Data.EF\ppedv.Personenverwaltung.Data.EF.csproj">
+      <Project>{24aa4c8f-d8cb-48d8-a561-9e14316d7ee5}</Project>
+      <Name>ppedv.Personenverwaltung.Data.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ppedv.Personenverwaltung.Domain\ppedv.Personenverwaltung.Domain.csproj">
+      <Project>{143fde1f-2211-4500-a503-c42c9e01640c}</Project>
+      <Name>ppedv.Personenverwaltung.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

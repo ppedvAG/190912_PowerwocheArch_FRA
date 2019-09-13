@@ -11,7 +11,7 @@ namespace ppedv.Personenverwaltung.Data.EF
     public class EFContext : DbContext
     {
         // Minimalkonfiguration
-        public EFContext() : this(@"Server=(localdb)\MSSQLLocalDB;Database=Personenverwaltung_Produktion;Trusted_Connection=true;C:\temp\Personenverwaltung.mdf") {}
+        public EFContext() : this(@"Server=(localdb)\MSSQLLocalDB;Database=Personenverwaltung_Produktion;Trusted_Connection=true;AttachDbFileName=C:\temp\Personenverwaltung.mdf") {}
         public EFContext(string connectionString) : base(connectionString){}
 
         public DbSet<Person> Person { get; set; }
